@@ -1,3 +1,36 @@
+* {
+
+}
+
 body {
     background-color: turquoise;
+    height: 100vh;
+    /* position: relative; */
+}
+
+header {
+    background-color: thistle;
+    /* height: 10vh; */
+    height: 100px;
+}
+
+main {
+    position: relative;
+    height: 80%;
+    background-color: lightyellow;
+}
+
+img {
+    height: 25vh;
+    min-height: 100px;
+}
+
+.start {
+}
+
+.actions {
+    width: 200px;
+    position: absolute;
+    bottom: 10px;
+    background-color: thistle;
 }
