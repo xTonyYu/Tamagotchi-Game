@@ -15,23 +15,34 @@
     <title>Tamagotchi</title>
 </head>
 <body>
-    <header> Tomagotchi is FUN!  Let's paly! 😝
-        <button class="start">Get my pet</button>
-        <section class="status age">Age: </section>
-        <section class="status hungriness">Hungriness: </section>
-        <section class="status boredom">Boredom: </section>
-        <section class="status sleepiness">Sleepiness: </section>
+    <header>
+        <h2>Tomagotchi is FUN!  Let's paly! 😝</h2>
+        <!-- <section class="game-info"> -->
+            <section class="start-game">
+                <h4>Date and Time</h4>
+                <button class="start-btn">Get my pet</button>
+            </section>
+            <section class="status-container">
+                <h4>Health Status</h4>
+                <ul>
+                    <li class="status age">Age: 6</li>
+                    <li class="status hungriness">Hungriness: 5</li>
+                    <li class="status boredom">Boredom: 5</li>
+                    <li class="status sleepiness">Sleepiness: 5</li>
+                </ul>
+            </section>
+        <!-- </section> -->
     </header>
     
     <main>
-        <section class="playgound">
-            <button class="light sleep">Light bulb</button>
-            <figure class="tomagotchi">
+        <button class="light-btn sleep">Light bulb</button>
+        <section class="playground">
+            <div class="tomagotchi">
                 <!-- below image is by Ruchi Kulkarni from https://www.clipartkey.com/view/iTRTRm_baby-darth-vader-png/ -->
                 <img src="img/ClipartKey_195485.png" alt="your_pet">
-            </figure>
+            </div>
         </section>
-        <section class="actions">section</section>
+        <section class="actions">
             <button id="feed">Feed</button>
             <button id="play">Play</button>
         </section>

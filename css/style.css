@@ -1,5 +1,6 @@
-* {
 
+html {
+    min-width: 335px;
 }
 
 body {
@@ -11,7 +12,53 @@ body {
 header {
     background-color: thistle;
     /* height: 10vh; */
-    height: 100px;
+    min-height: 150px;
+}
+
+h2 {
+    margin: 10px;
+}
+
+.game-info {
+    /* display: inline; */
+}
+
+.start-game {
+    display: inline-block;
+    width: 270px;
+    border: solid 1px red;
+}
+
+time {
+    display: block;
+    margin: 0 10px 15px;
+}
+
+.start-btn {
+
+}
+
+.status-container {
+    float: right;
+}
+
+h4 {
+    margin: 0 0 10px;
+}
+
+ul {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    height: 50px;
+    width: 270px;
+    columns: 2;
+}
+
+.status {
+    list-style: none;
+    margin-bottom: 5px;
+    /* width: 120px; */
 }
 
 main {
@@ -20,17 +67,42 @@ main {
     background-color: lightyellow;
 }
 
+.light-btn {
+    display: inline;
+    position: absolute;
+    float: right;
+    margin-right: 30px;
+    height: 100px;
+}
+.playground {
+    width: 100%;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    border: solid 1px red;
+}
+
+.tomagotchi {
+    display: inline-block;
+}
+
 img {
     height: 25vh;
     min-height: 100px;
 }
 
-.start {
-}
-
 .actions {
-    width: 200px;
+    width: 100%;
     position: absolute;
     bottom: 10px;
     background-color: thistle;
+    text-align: center;
+}
+
+.actions button {
+    width: 200px;
+    height: 50px;
+    border-radius: 50%;
+    margin: 10px 20px;
 }
