@@ -97,8 +97,9 @@ class Tamagotchi {
         if (this.sleepiness <= 1) {
             return;
         }
-        let timeUnitPassed = Math.floor((curTime - startSleepTime)/sleepPtReductionTimeUnit);
-        this.sleepiness -= sleepingPtsPerTimeUnit  * timeUnitPassed;
+        if ((curTime - startSleepTime) % sleepPtReductionTimeUnit === 0) {
+            this.sleepiness -= sleepingPtsPerTimeUnit  * timeUnitPassed;
+        };
     }
     isItStillAlive() {
         let pointLevel = Math.max(this.sleepiness, this.boredom, this.hunger);
