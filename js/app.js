@@ -107,6 +107,7 @@ class Tamagotchi {
             this.state = 'dead'
             console.log('dead')
             alert(`Game over! ${myPet.name}`)
+            inputName.disabled = false
             startBtn.disabled = false
         }
     }
@@ -154,6 +155,7 @@ const updateStats = function updateStats() {
 const startGame = function startGame() {  // interval in seconds
     let name = inputName.value;
     myPet = new Tamagotchi(name);  // other than name, rest params are using default values
+    inputName.disabled = true;
     startBtn.disabled = true;
     myPet.appear();
     // sleep button triggers setting the startSleepTime = time
@@ -169,6 +171,7 @@ const startGame = function startGame() {  // interval in seconds
             clearInterval(timer);
             //game ends display game over on screen
             console.log('Game OVER!')
+            inputName.disabled = false
             startBtn.disabled = false
         }
     }, 1000 * interval);  // 1 sec interval for testing; 1 min for production
