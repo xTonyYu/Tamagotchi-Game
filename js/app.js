@@ -3,7 +3,7 @@ console.log('Tamagotchi')
 
 // Specifications:
 //   ✔  Create a repo for your Tamagotchi pet
-//      make a commit after you finish each one of the following
+//      make a commit after you finish each one of the following (20+)
 //   ✔  Create a Class (JS Class, look at your notes if your forget) for your Tamagotchi
 //   ✔   Instatiate your Tamagotchi
 //   ✔   Display a character of your choice on the screen to represent your pet
@@ -13,11 +13,11 @@ console.log('Tamagotchi')
 //   ✔   Boredom (1-10 scale)
 //   ✔   Age
 //   ✔   Add buttons to the screen to feed your pet, turn off the lights, and play with your pet.
-//      Add the ability to name your pet.
+//   ✔   Add the ability to name your pet.
 //      Style the page.
-//      Increase your pet's age every x minutes
-//      Increase your pet's Hunger, Sleepiness, and Bored metrics on an interval of your choosing.
-//      You pet should die if Hunger, Boredom, or Sleepiness hits 10.
+//   ✔   Increase your pet's age every x minutes
+//   ✔   Increase your pet's Hunger, Sleepiness, and Bored metrics on an interval of your choosing.
+//   ✔   You pet should die if Hunger, Boredom, or Sleepiness hits 10.
 //      Morph your pet at certain ages.
 //      Animate your pet across the screen while it's alive.
 
@@ -35,7 +35,7 @@ console.log('Tamagotchi')
 // ------ Global variables/App state ---------
 let time = 0, startSleepTime = 0;
 let myPet;
-let interval = 0.1; // in seconds; 60 sec means each time unit below is one minute; use 1 to shorten the time period for testing
+let interval = 1; // in seconds; 60 sec means each time unit below is one minute; use 1 to shorten the time period for testing
 
 const feedingPt = 0.1;
 const playingPtsOptimal = 1;
@@ -57,8 +57,10 @@ const feedBtn = document.getElementById('feed')
 const playBtn = document.getElementById('play')
 const playGround = $('.playground')
 const tama = document.querySelector('.tamagotchi')
-
-// startBtn.addEventListener
+const ageStat = document.querySelector('.age')
+const hungerStat = document.querySelector('.hungriness')
+const boreStat = document.querySelector('.boredom')
+const sleepStat = document.querySelector('.sleepiness')
 
 // ------ Classes ---------
 
@@ -76,13 +78,13 @@ class Tamagotchi {
         tama.classList.add('show');
     }
     eat(food) {
-        if (this.state === 'sleep' || this.hunger < 1) {
+        if (this.state === 'sleep' || this.hunger <= 1) {
             return;
         }
         this.hunger -= feedingPt;
     }
     play(fun) {
-        if (this.state === 'sleep' || this.boredom < 1) {
+        if (this.state === 'sleep' || this.boredom <= 1) {
             return;
         }
         if (this.hunger >= 4 & this.hunger <= 7) {
@@ -92,7 +94,7 @@ class Tamagotchi {
         }
     }
     sleep(startSleepTime, curTime) { // times are in minutes
-        if (this.sleepiness < 1) {
+        if (this.sleepiness <= 1) {
             return;
         }
         let timeUnitPassed = Math.floor((curTime - startSleepTime)/sleepPtReductionTimeUnit);
@@ -129,21 +131,24 @@ const gotoSleep = function gotoSleepAndLightsOff() {
     }
 }
 
-const feeding = function feeding() {
+const playerTakingAction = function playerTakingAction(action) {
     if (!myPet) {
         return;
     }
-    myPet.eat();
-}
-
-const playing = function playing() {
-    if (!myPet) {
-        return;
+    if (action === 'feeding') {
+        myPet.eat();
+    } else if (action === 'playing') {
+        myPet.play();
     }
-    myPet.play();
+    updateStats();
 }
 
-// update stats func
+const updateStats = function updateStats() {
+    ageStat.textContent = myPet.age;
+    hungerStat.textContent = Math.round(myPet.hunger);
+    boreStat.textContent = Math.round(myPet.boredom);
+    sleepStat.textContent = Math.round(myPet.sleepiness);
+}
 
 const startGame = function startGame() {  // interval in seconds
     let name = inputName.value;
@@ -156,6 +161,7 @@ const startGame = function startGame() {  // interval in seconds
         time++;
         console.log('startSleepTime BEFORE update', startSleepTime);
         updateHealth(time, startSleepTime);
+        updateStats()
         myPet.isItStillAlive();
         // console.log('time:', time);
         if (myPet.state === 'dead') {
@@ -193,8 +199,8 @@ const updateHealth = function updatePetHealth(time, startSleepTime) {
 // ------ Event Listeners ---------
 startBtn.addEventListener('click', startGame)
 lightSwitch.addEventListener('click', gotoSleep)
-feedBtn.addEventListener('click', feeding)
-playBtn.addEventListener('click', playing)
+feedBtn.addEventListener('click', e => playerTakingAction('feeding'))
+playBtn.addEventListener('click', e => playerTakingAction('playing'))
 
 // ------ Game run ---------
 
