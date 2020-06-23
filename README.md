@@ -21,13 +21,14 @@ How to play:
 1) Click "New Pet" to start the game
 2) Click "Feed" to feed your pet; hunger level scales from 1 to 10 (1 = full,  10 = starving)
 3) Click "Play" to play with your pet; boredom level scales from 1 to 10 (1 = well entertained, 10 = bored to death)
-4) Turn the lights off for it to sleep; sleepiness level scales from 1 to 10 (1 = well rested, 10 = extremly sleepy)
-4) Check back once in a while to make sure it is not hungry or bored
-5) Your pet cannot play or eat while it is sleeping
-6) When it is very full or very hungry, playing will not reduce boredom as fast
-7) Your pet will not be bored when it sleeps but it could still feel hunger
-8) Your pet will morph after a certain age
-9) if it is happy (meaning not too full, not too hungry, or not too sleepy), it will jump around on the sceen
+4) Turn the light off for it to sleep; sleepiness level scales from 1 to 10 (1 = well rested, 10 = extremly sleepy)
+5) Each new pet starts at age 1 and with level 5 of sleepiness, hunger, and boredom.
+6) Check back once in a while to make sure it is not hungry or bored
+7) Your pet cannot play or eat while it is sleeping
+8) When it is very full or very hungry, playing will not reduce boredom as fast
+9) Your pet will not be bored when it sleeps but it could still feel hunger
+10) Your pet will morph after a certain age
+11) if it is happy (meaning not too full, not too hungry, or not too sleepy), it will jump around on the sceen
 
 ------------------------
 Approach:
