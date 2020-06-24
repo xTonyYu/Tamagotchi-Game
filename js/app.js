@@ -36,7 +36,7 @@ console.log('Tamagotchi')
 let time = 0, startSleepTime = 0;
 let myPet;
 let interval = 0.31; // in seconds; 60 sec means each time unit below is one minute; use 1 to shorten the time period for testing
-let morphTime = 8;
+let morphTime = 10;
 
 const feedingPt = 0.1;
 const playingPtsOptimal = 1;
@@ -78,6 +78,7 @@ class Tamagotchi {
     }
     
     appear() {
+        // this.state = 'awake'
         pet.setAttribute('src', 'img/ClipartKey_195485.png')
         pet.style.height = '70%'
         tama.classList.add('show');
@@ -180,8 +181,12 @@ const morphing = function morphing(time) {
         return;
     }
     if (time === morphTime && myPet.state !== 'dead') {
-        pet.setAttribute('src', 'img/teen-vader-clip-star-wars-2.png')
+        pet.setAttribute('src', 'img/tween-darth-vader-clipart-2019-7.png')
         pet.style.height = '100%'
+    } else if (time === morphTime * 2 && myPet.state !== 'dead') {
+        pet.setAttribute('src', 'img/teen-vader-clip-star-wars-2.png')
+    } else if (time === morphTime * 3 && myPet.state !== 'dead') {
+        pet.setAttribute('src', 'img/adult-20-202841_vader-drawing-epic-star-wars-darth-vader.png')
     }
 }
 
@@ -191,6 +196,7 @@ const startGame = function startGame() {  // interval in seconds
     inputName.disabled = true;
     startBtn.disabled = true;
     myPet.appear();
+    time = 0;
     // sleep button triggers setting the startSleepTime = time
     // console.log('time before timer:', time)
     const timer = setInterval(() => {
@@ -214,7 +220,7 @@ const startGame = function startGame() {  // interval in seconds
 const updateHealth = function updatePetHealth(time, startSleepTime) {
     // console.log('time in update func:', time, startSleepTime, time - startSleepTime)
     if (time % ptGainTimeUnit === 0 && myPet.state === 'awake') {
-        myPet.hunger < 10 ? myPet.hunger += ptsGainPerTimeUnit : myPet.hunger;
+        Math.round(myPet.hunger) < 10 ? myPet.hunger += ptsGainPerTimeUnit : myPet.hunger;
         myPet.boredom < 10 ? myPet.boredom += ptsGainPerTimeUnit : myPet.boredom;
         console.log(myPet.state, 'hunger:', myPet.hunger,'boredom', myPet.boredom)
     } else if ((time - startSleepTime) % hungerPtGainDuringSleepTimeUnit === 0 && myPet.state === 'sleep') {
