@@ -23,7 +23,7 @@ body {
     justify-content: center;
     /* border-radius: 50%; */
     /* position: relative; */
-    /* overflow: hidden; */
+    overflow: scroll;
 }
 
 button {

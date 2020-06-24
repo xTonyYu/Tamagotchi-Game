@@ -3,7 +3,7 @@ console.log('Tamagotchi')
 
 // Specifications:
 //   ✔  Create a repo for your Tamagotchi pet
-//      make a commit after you finish each one of the following (20+)
+//   ✔   make a commit after you finish each one of the following (20+)
 //   ✔  Create a Class (JS Class, look at your notes if your forget) for your Tamagotchi
 //   ✔   Instatiate your Tamagotchi
 //   ✔   Display a character of your choice on the screen to represent your pet
@@ -14,12 +14,12 @@ console.log('Tamagotchi')
 //   ✔   Age
 //   ✔   Add buttons to the screen to feed your pet, turn off the lights, and play with your pet.
 //   ✔   Add the ability to name your pet.
-//      Style the page.
+//   ✔   Style the page.
 //   ✔   Increase your pet's age every x minutes
 //   ✔   Increase your pet's Hunger, Sleepiness, and Bored metrics on an interval of your choosing.
 //   ✔   You pet should die if Hunger, Boredom, or Sleepiness hits 10.
 //      Morph your pet at certain ages.
-//      Animate your pet across the screen while it's alive.
+//   ✔   Animate your pet across the screen while it's alive.
 
 // ***** Additional Game features not listed in the README so user have to play to figure it out *****
 // how much point to reduce for each...
@@ -27,15 +27,16 @@ console.log('Tamagotchi')
 //   ✔   playing click? -> 1 pt when hunger level is between 4-7, else 20% of 1 pt
 //   ✔   sleeping? -> 1 pt for 10 mins of sleep
 // how fast do following increase (during game)?
-//      hunger -> +1 pt per 10 mins when awake; +1 pt per 40 mins when sleeping
-//      boredome -> +1 pt per 10 mins
-//      sleepiness -> +1 pt per 20 mins
-//      age -> +1 per 200 mins 
+//   ✔   hunger -> +1 pt per 10 mins when awake; +1 pt per 40 mins when sleeping
+//   ✔   boredome -> +1 pt per 10 mins
+//   ✔   sleepiness -> +1 pt per 20 mins
+//   ✔   age -> +1 per 200 mins 
 
 // ------ Global variables/App state ---------
 let time = 0, startSleepTime = 0;
 let myPet;
 let interval = 0.31; // in seconds; 60 sec means each time unit below is one minute; use 1 to shorten the time period for testing
+let morphTime = 8;
 
 const feedingPt = 0.1;
 const playingPtsOptimal = 1;
@@ -61,6 +62,7 @@ const ageStat = document.querySelector('.age')
 const hungerStat = document.querySelector('.hungriness')
 const boreStat = document.querySelector('.boredom')
 const sleepStat = document.querySelector('.sleepiness')
+const pet = document.getElementById('pet')
 
 // ------ Classes ---------
 
@@ -175,9 +177,11 @@ const morphing = function morphing(time) {
     if (!myPet) {
         return;
     }
-    if (time % 8 === 0 && myPet.state !== 'dead') {
-        
+    if (time === morphTime && myPet.state !== 'dead') {
+        pet.setAttribute('src', 'img/tween-darth-vader-clipart-2019-7.png')
+        pet.style.height = '300px'
     }
+}
 
 const startGame = function startGame() {  // interval in seconds
     let name = inputName.value;
@@ -195,6 +199,7 @@ const startGame = function startGame() {  // interval in seconds
         updateStats()
         myPet.isItStillAlive();
         animating(time)
+        morphing(time)
         if (myPet.state === 'dead') {
             clearInterval(timer);
             console.log('Game OVER!')
