@@ -45,16 +45,20 @@ header {
 }
 
 .logo-container {
-    /* display: block; */
-    text-align: center;
+    display: flex;
+    justify-content: center;
 }
 
+#name-display {
+    padding: 10px;
+    text-align: right;
+    /* display: inline; */
+    /* vertical-align: middle; */
+    /* top: 100px; */
+}
 #logo {
+    /* display: inline; */
     height: 90px;
-}
-
-h2 {
-    margin: 10px;
 }
 
 .start-game {

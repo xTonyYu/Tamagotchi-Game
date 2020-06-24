@@ -51,6 +51,7 @@ const hungerPtGainDuringSleepTimeUnit = 40;
 const ageGainTimeUnit = 10 * sleepPtGainTimeUnit; // 10x of sleep time unit (200 mins in this case)
 
 // ------ Cached DOM Elements ---------
+const logoContainer = document.querySelector('.logo-container')
 const inputName = document.querySelector('input')
 const startBtn = document.querySelector('.start-btn')
 const lightSwitch = $('.light-btn')
@@ -210,6 +211,7 @@ const startGame = function startGame() {  // interval in seconds
     myPet = new Tamagotchi(name);  // other than name, rest params are using default values
     inputName.disabled = true;
     startBtn.disabled = true;
+    logoContainer.insertAdjacentHTML('afterbegin', `<h2 id="name-display">${name}</h2>`);
     myPet.appear();
     time = 0;
     // sleep button triggers setting the startSleepTime = time
