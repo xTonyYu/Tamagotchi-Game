@@ -42,7 +42,7 @@ Approach:
 
 ------------------------
 Wireframes:
-![Overall look of the game] (./img/wireframe.JPG)
+![Overall look of the game](./img/wireframe.JPG)
 
 ------------------------
 Technology used:
