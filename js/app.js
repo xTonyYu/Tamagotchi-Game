@@ -78,6 +78,8 @@ class Tamagotchi {
     }
     
     appear() {
+        pet.setAttribute('src', 'img/ClipartKey_195485.png')
+        pet.style.height = '70%'
         tama.classList.add('show');
         tama.classList.add('animate__slideInDown')
         // tama.classList.add('animate__tada')
@@ -178,8 +180,8 @@ const morphing = function morphing(time) {
         return;
     }
     if (time === morphTime && myPet.state !== 'dead') {
-        pet.setAttribute('src', 'img/tween-darth-vader-clipart-2019-7.png')
-        pet.style.height = '300px'
+        pet.setAttribute('src', 'img/teen-vader-clip-star-wars-2.png')
+        pet.style.height = '100%'
     }
 }
 
