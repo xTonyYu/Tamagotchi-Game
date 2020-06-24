@@ -52,7 +52,7 @@ const ageGainTimeUnit = 10 * sleepPtGainTimeUnit; // 10x of sleep time unit (200
 // ------ Cached DOM Elements ---------
 const inputName = document.querySelector('input')
 const startBtn = document.querySelector('.start-btn')
-const lightSwitch = document.querySelector('.light-btn')
+const lightSwitch = $('.light-btn')
 const feedBtn = document.getElementById('feed')
 const playBtn = document.getElementById('play')
 const playGround = $('.playground')
@@ -122,6 +122,7 @@ const tempFunc = function tempFunc(e) {
 
 const gotoSleep = function gotoSleepAndLightsOff() {
     playGround.toggleClass("night")
+    lightSwitch.toggleClass("light-on")
     if (!myPet) {
         return;
     }
@@ -201,7 +202,7 @@ const updateHealth = function updatePetHealth(time, startSleepTime) {
 
 // ------ Event Listeners ---------
 startBtn.addEventListener('click', startGame)
-lightSwitch.addEventListener('click', gotoSleep)
+lightSwitch.on('click', gotoSleep)
 feedBtn.addEventListener('click', e => playerTakingAction('feeding'))
 playBtn.addEventListener('click', e => playerTakingAction('playing'))
 

@@ -1,14 +1,12 @@
+
+/* light bulb images created by my wife UX Designer */
+/* background images from https://tamagotchi.fandom.com/wiki/Patchi_Forest */
+
 :root {
     --main-width: 80vw;
     --main-min-width: 450px;
     --main-max-width: 600px;
 }
-
-/* html {
-    min-width: 335px;
-    max-height: 100vh;
-} */
-/* background images from https://tamagotchi.fandom.com/wiki/Patchi_Forest */
 
 body {
     background-color: black;
@@ -24,6 +22,12 @@ body {
     /* border-radius: 50%; */
     /* position: relative; */
     /* overflow: hidden; */
+}
+
+button {
+    cursor: pointer;
+    /* border: none; */
+    
 }
 
 header, main {
@@ -106,15 +110,22 @@ main {
 
 .light-btn {
     /* display: inline; */
+    background: url('../img/lightOff.png');
+    background-repeat: no-repeat;
+    background-position: top;
+    background-size: contain;
+    /* background-color: red; */
     position: absolute;
-    right: 0;
+    border: none;
     /* float: right; */
+    right: 0;
     margin-right: 30px;
-    height: 100px;
+    height: 85px;
 }
 .playground {
     box-sizing: border-box;
     background-image: url('../img/Patchi_forest_gogo.jpg');
+    /* background-image: url('../img/lightOff.png'); */
     background-size: cover;
     background-position: center;
     width: 100%;
@@ -175,4 +186,11 @@ main {
     background-size: cover;
     background-position: center;
     background-color: rgba(2, 4, 67, 0.529);
+}
+
+.light-on {
+    background: url('../img/lightOn.png');
+    background-repeat: no-repeat;
+    background-position: top;
+    background-size: contain;
 }
