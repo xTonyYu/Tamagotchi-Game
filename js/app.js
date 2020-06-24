@@ -35,7 +35,7 @@ console.log('Tamagotchi')
 // ------ Global variables/App state ---------
 let time = 0, startSleepTime = 0;
 let myPet;
-let interval = 1; // in seconds; 60 sec means each time unit below is one minute; use 1 to shorten the time period for testing
+let interval = 0.31; // in seconds; 60 sec means each time unit below is one minute; use 1 to shorten the time period for testing
 
 const feedingPt = 0.1;
 const playingPtsOptimal = 1;
@@ -71,11 +71,17 @@ class Tamagotchi {
         this.hunger = hunger;
         this.boredom = boredom;
         this.age = age;
-        this.state = 'awake'; 
+        this.state = 'awake'; // awake, sleep, dead
+        this.move = 0; // index for moves ['animate__tada', 'animate__wobble', 'animate__bounce', 'animate__rubberBand']
     }
     
     appear() {
         tama.classList.add('show');
+        tama.classList.add('animate__slideInDown')
+        // tama.classList.add('animate__tada')
+        setTimeout(() => {
+            tama.classList.remove('animate__slideInDown')
+        }, 550);
     }
     eat(food) {
         if (this.state === 'sleep' || this.hunger <= 1) {
@@ -98,7 +104,7 @@ class Tamagotchi {
             return;
         }
         if ((curTime - startSleepTime) % sleepPtReductionTimeUnit === 0) {
-            this.sleepiness -= sleepingPtsPerTimeUnit  * timeUnitPassed;
+            this.sleepiness -= sleepingPtsPerTimeUnit;
         };
     }
     isItStillAlive() {
@@ -106,7 +112,7 @@ class Tamagotchi {
         if (pointLevel >= 10) {
             this.state = 'dead'
             console.log('dead')
-            alert(`Game over! ${myPet.name}`)
+            alert(`Game over! ${myPet.name} is DEAD... YOU KILLED it!!!`)
             inputName.disabled = false
             startBtn.disabled = false
         }
@@ -114,15 +120,9 @@ class Tamagotchi {
 } 
 
 // ------ Functions ---------
-const tempFunc = function tempFunc(e) {
-    console.log(name)
-    // console.log(e)
-    // console.log(this)
-}
-
 const gotoSleep = function gotoSleepAndLightsOff() {
     playGround.toggleClass("night")
-    lightSwitch.toggleClass("light-on")
+    lightSwitch.toggleClass("light-off")
     if (!myPet) {
         return;
     }
@@ -153,6 +153,32 @@ const updateStats = function updateStats() {
     sleepStat.textContent = Math.round(myPet.sleepiness);
 }
 
+const animating = function animating(time) {
+    // tama.classList.remove('animate__slideInDown')
+    // tama.classList.remove('animate__tada')
+    let animate = ['animate__tada', 'animate__bounce', 'animate__wobble', 'animate__rubberBand']
+    if (!myPet) {
+        return;
+    }
+    if (time % 4 === 2 && myPet.state === 'awake') {
+        myPet.move >= animate.length ? myPet.move = myPet.move % animate.length : myPet.move;
+        console.log('animating', myPet.move)
+        tama.classList.add(animate[myPet.move])
+    } else if (tama.classList.contains(animate[myPet.move])) {
+        tama.classList.remove(animate[myPet.move])
+        myPet.move++
+        // console.log('myPet.move', myPet.move)
+    }
+}
+
+const morphing = function morphing(time) {
+    if (!myPet) {
+        return;
+    }
+    if (time % 8 === 0 && myPet.state !== 'dead') {
+        
+    }
+
 const startGame = function startGame() {  // interval in seconds
     let name = inputName.value;
     myPet = new Tamagotchi(name);  // other than name, rest params are using default values
@@ -160,14 +186,15 @@ const startGame = function startGame() {  // interval in seconds
     startBtn.disabled = true;
     myPet.appear();
     // sleep button triggers setting the startSleepTime = time
-    console.log('time before timer:', time)
+    // console.log('time before timer:', time)
     const timer = setInterval(() => {
         time++;
+        console.log('time:', time);
         // console.log('startSleepTime BEFORE update', startSleepTime);
         updateHealth(time, startSleepTime);
         updateStats()
         myPet.isItStillAlive();
-        // console.log('time:', time);
+        animating(time)
         if (myPet.state === 'dead') {
             clearInterval(timer);
             console.log('Game OVER!')
@@ -178,7 +205,7 @@ const startGame = function startGame() {  // interval in seconds
 }
 
 const updateHealth = function updatePetHealth(time, startSleepTime) {
-    console.log('time in update func:', time, startSleepTime, time - startSleepTime)
+    // console.log('time in update func:', time, startSleepTime, time - startSleepTime)
     if (time % ptGainTimeUnit === 0 && myPet.state === 'awake') {
         myPet.hunger < 10 ? myPet.hunger += ptsGainPerTimeUnit : myPet.hunger;
         myPet.boredom < 10 ? myPet.boredom += ptsGainPerTimeUnit : myPet.boredom;
@@ -206,7 +233,12 @@ lightSwitch.on('click', gotoSleep)
 feedBtn.addEventListener('click', e => playerTakingAction('feeding'))
 playBtn.addEventListener('click', e => playerTakingAction('playing'))
 
-// ------ Game run ---------
+// ------ Test ---------
 
 // startGame('baby Vader', 1)
 
+const tempFunc = function tempFunc(e) {
+    console.log(name)
+    // console.log(e)
+    // console.log(this)
+}

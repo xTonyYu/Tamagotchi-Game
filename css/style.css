@@ -9,6 +9,8 @@
 }
 
 body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 15px;
     background-color: black;
     background-image: url('../img/Patchi_forest_new.png');
     background-size: cover;
@@ -39,7 +41,7 @@ header, main {
 header {
     background-color: thistle;
     /* height: 10vh; */
-    height: 180px;
+    /* height: 180px; */
 }
 
 .logo-container {
@@ -49,20 +51,15 @@ header {
 
 #logo {
     height: 90px;
-
 }
 
 h2 {
     margin: 10px;
 }
 
-.game-info {
-    /* display: inline; */
-}
-
 .start-game {
     display: inline-block;
-    padding: 0 0 0 20px;
+    padding: 0 0 10px 20px;
     width: 190px;
     /* border: solid 1px red; */
     text-align: center;
@@ -71,10 +68,6 @@ h2 {
 
 input {
     margin: -15px auto 5px;
-}
-
-.start-btn {
-
 }
 
 .status-container {
@@ -104,21 +97,22 @@ main {
     position: relative;
     /* display: block; */
     height: 70%;
-    min-height: 400px;
+    /* height: 500px; */
+    min-height: 300px;
     background-color: lightyellow;
 }
 
 .light-btn {
     /* display: inline; */
-    background: url('../img/lightOff.png');
+    background: url('../img/lightOn.png');
     background-repeat: no-repeat;
     background-position: top;
     background-size: contain;
     /* background-color: red; */
     position: absolute;
     border: none;
-    /* float: right; */
     right: 0;
+    /* float: right; */
     margin-right: 30px;
     padding: 0;
     width: 70px;
@@ -153,13 +147,18 @@ main {
     position: absolute;
     /* width: 100px;
     height: 100px; */
-    left: 30%;
-    top: 20%;
-    transition: rotate 1s;
+    left: 35%;
+    top: 30%;
+    transition: all linear 1s;
+
 }
 
 .tamagotchi:hover {
-    background-color: red;
+    background-color: yellow;
+    /* opacity: .7; */
+    border-radius: 40%;
+    left: 20%;
+    top: 35%;
 }
 
 #pet {
@@ -192,8 +191,8 @@ main {
     background-color: rgba(2, 4, 67, 0.529);
 }
 
-.light-on {
-    background: url('../img/lightOn.png');
+.light-off {
+    background: url('../img/lightOff.png');
     background-repeat: no-repeat;
     background-position: top;
     background-size: contain;
