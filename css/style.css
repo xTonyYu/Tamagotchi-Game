@@ -1,17 +1,22 @@
 :root {
     --main-width: 80vw;
     --main-min-width: 450px;
+    --main-max-width: 600px;
 }
 
-html {
+/* html {
     min-width: 335px;
     max-height: 100vh;
-}
+} */
+/* background images from https://tamagotchi.fandom.com/wiki/Patchi_Forest */
 
 body {
     background-color: black;
+    background-image: url('../img/Patchi_forest_new.png');
+    background-size: cover;
+    background-position: center;
     min-width: var(--main-min-width);
-    height: 95vh;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -21,12 +26,26 @@ body {
     /* overflow: hidden; */
 }
 
+header, main {
+    width: var(--main-width);
+    min-width: var(--main-min-width);
+    max-width: var(--main-max-width);
+}
+
 header {
     background-color: thistle;
     /* height: 10vh; */
-    height: 140px;
-    width: var(--main-width);
-    min-width: var(--main-min-width);
+    height: 180px;
+}
+
+.logo-container {
+    /* display: block; */
+    text-align: center;
+}
+
+#logo {
+    height: 90px;
+
 }
 
 h2 {
@@ -39,10 +58,11 @@ h2 {
 
 .start-game {
     display: inline-block;
-    margin: 0 0 0 20px;
+    padding: 0 0 0 20px;
     width: 190px;
     /* border: solid 1px red; */
     text-align: center;
+    /* background-color: lightyellow; */
 }
 
 input {
@@ -81,8 +101,6 @@ main {
     /* display: block; */
     height: 70%;
     min-height: 400px;
-    width: var(--main-width);
-    min-width: var(--main-min-width);
     background-color: lightyellow;
 }
 
@@ -95,19 +113,41 @@ main {
     height: 100px;
 }
 .playground {
+    box-sizing: border-box;
+    background-image: url('../img/Patchi_forest_gogo.jpg');
+    background-size: cover;
+    background-position: center;
     width: 100%;
-    height: 80%;
+    height: 90%;
     display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    border: solid 1px red;
+    /* justify-content: center; */
+    /* align-items: flex-end; */
+    border-left: solid 1px grey;
+    border-right: solid 1px grey;
+}
+
+.opaqueLayer {
+    background-color: rgba(255, 255, 255, 0.2);
+    width: 100%;
+    height: 100%;
 }
 
 .tamagotchi {
     display: none;
+    /* align-self: flex-end; */
+    position: absolute;
+    /* width: 100px;
+    height: 100px; */
+    left: 30%;
+    top: 20%;
+    transition: rotate 1s;
 }
 
-img {
+.tamagotchi:hover {
+    background-color: red;
+}
+
+#pet {
     height: 25vh;
     min-height: 100px;
 }
@@ -115,7 +155,7 @@ img {
 .actions {
     width: 100%;
     position: absolute;
-    bottom: 10px;
+    bottom: 0;
     background-color: thistle;
     text-align: center;
 }
@@ -131,5 +171,8 @@ img {
 }
 
 .night {
-    background-color: grey;
+    background-image: url('../img/Patchi_forest_night.png');
+    background-size: cover;
+    background-position: center;
+    background-color: rgba(2, 4, 67, 0.529);
 }

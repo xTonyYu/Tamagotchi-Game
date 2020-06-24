@@ -16,7 +16,11 @@
 </head>
 <body>
     <header>
-        <h2>Tamagotchi is FUN!  Let's play! 😝</h2>
+        <div class="logo-container">
+            <!-- logo from https://logos.fandom.com/wiki/Tamagotchi -->
+            <img id="logo" src="img/Tamagotchi_Logo.png" alt="logo">
+        </div>
+        <!-- <h2>Tamagotchi is FUN!  Let's play! 😝</h2> -->
         <section class="start-game">
             <h4>What's your pet's name?</h4>
             <input type="text">
@@ -36,9 +40,11 @@
     <main>
         <button class="light-btn sleep">Light bulb</button>
         <section class="playground">
-            <div class="tamagotchi">
-                <!-- below image is by Ruchi Kulkarni from https://www.clipartkey.com/view/iTRTRm_baby-darth-vader-png/ -->
-                <img src="img/ClipartKey_195485.png" alt="your_pet">
+            <div class="opaqueLayer">
+                <div class="tamagotchi show">
+                    <!-- below image is by Ruchi Kulkarni from https://www.clipartkey.com/view/iTRTRm_baby-darth-vader-png/ -->
+                    <img id="pet" src="img/ClipartKey_195485.png" alt="your_pet">
+                </div>
             </div>
         </section>
         <section class="actions">
