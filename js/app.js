@@ -162,14 +162,13 @@ const startGame = function startGame() {  // interval in seconds
     console.log('time before timer:', time)
     const timer = setInterval(() => {
         time++;
-        console.log('startSleepTime BEFORE update', startSleepTime);
+        // console.log('startSleepTime BEFORE update', startSleepTime);
         updateHealth(time, startSleepTime);
         updateStats()
         myPet.isItStillAlive();
         // console.log('time:', time);
         if (myPet.state === 'dead') {
             clearInterval(timer);
-            //game ends display game over on screen
             console.log('Game OVER!')
             inputName.disabled = false
             startBtn.disabled = false
