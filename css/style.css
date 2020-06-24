@@ -143,29 +143,31 @@ main {
 
 .tamagotchi {
     display: none;
-    /* align-self: flex-end; */
+    /* background-color: lightblue; */
     position: absolute;
-    /* width: 100px;
-    height: 100px; */
+    width: 20vw;
     height: 25vh;
     left: 35%;
     top: 30%;
     transition: all linear 1s;
 }
-
 .tamagotchi:hover {
-    background-color: yellow;
-    /* opacity: .7; */
-    border-radius: 40%;
     left: 20%;
     top: 35%;
 }
 
-#pet {
+.pet {
     position: absolute;
-    height: 70%;
+    /* bottom: 0; */
     min-height: 100px;
-    bottom: 0;
+    /* transition: height linear 1s; */
+    transition: opacity ease-in-out 1s;
+    transition: all linear 1s;
+    height: 60%;
+}
+
+#tween, #teen, #adult {
+    opacity: 0;
 }
 
 .actions {
@@ -183,7 +185,9 @@ main {
     margin: 10px 20px;
 }
 .show {
-    display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
 }
 
 .night {

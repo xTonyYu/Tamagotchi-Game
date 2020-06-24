@@ -62,7 +62,11 @@ const ageStat = document.querySelector('.age')
 const hungerStat = document.querySelector('.hungriness')
 const boreStat = document.querySelector('.boredom')
 const sleepStat = document.querySelector('.sleepiness')
-const pet = document.getElementById('pet')
+const pet = document.querySelector('.pet')
+const baby = document.getElementById('baby')
+const tween = document.getElementById('tween')
+const teen = document.getElementById('teen')
+const adult = document.getElementById('adult')
 
 // ------ Classes ---------
 
@@ -78,9 +82,15 @@ class Tamagotchi {
     }
     
     appear() {
-        // this.state = 'awake'
-        pet.setAttribute('src', 'img/ClipartKey_195485.png')
-        pet.style.height = '70%'
+        // resetting
+        baby.style.opacity = 1;
+        tween.style.opacity = 0;
+        teen.style.opacity = 0;
+        adult.style.opacity = 0;
+        tween.style.height = '60%';
+        teen.style.height = '60%';
+        adult.style.height = '60%';
+        // starting
         tama.classList.add('show');
         tama.classList.add('animate__slideInDown')
         // tama.classList.add('animate__tada')
@@ -181,12 +191,17 @@ const morphing = function morphing(time) {
         return;
     }
     if (time === morphTime && myPet.state !== 'dead') {
-        pet.setAttribute('src', 'img/tween-darth-vader-clipart-2019-7.png')
-        pet.style.height = '100%'
+        baby.style.opacity = 0;
+        tween.style.opacity = 1;
+        tween.style.height = '80%';
     } else if (time === morphTime * 2 && myPet.state !== 'dead') {
-        pet.setAttribute('src', 'img/teen-vader-clip-star-wars-2.png')
+        tween.style.opacity = 0;
+        teen.style.opacity = 1;
+        teen.style.height = '100%';
     } else if (time === morphTime * 3 && myPet.state !== 'dead') {
-        pet.setAttribute('src', 'img/adult-20-202841_vader-drawing-epic-star-wars-darth-vader.png')
+        teen.style.opacity = 0;
+        adult.style.opacity = 1;
+        adult.style.height = '150%';
     }
 }
 
