@@ -1,5 +1,4 @@
 console.log('Tamagotchi')
-// $('body').css('color', 'red')
 
 // Specifications:
 //   ✔   Create a repo for your Tamagotchi pet
@@ -33,8 +32,8 @@ console.log('Tamagotchi')
 //   ✔   age -> +1 per 200 mins 
 
 // ------ Global variables/App state ---------
-let time = 0, startSleepTime = 0;
-let myPet;
+let time = 0, timer, startSleepTime = 0;
+let myPet;  // declared it as global variable so can be used in cosole log
 let interval = 0.31; // in seconds; 60 sec means each time unit below is one minute; use 1 to shorten the time period for testing
 
 const feedingPt = 0.1;
@@ -48,7 +47,7 @@ const ptGainTimeUnit = 10;
 const sleepPtGainTimeUnit = 15;
 const hungerPtGainDuringSleepTimeUnit = 30;
 const ageGainTimeUnit = 10;
-let morphTime = ageGainTimeUnit;
+let morphTime = ageGainTimeUnit * 1;
 
 // ------ Cached DOM Elements ---------
 const logoContainer = document.querySelector('.logo-container')
@@ -68,6 +67,7 @@ const baby = document.getElementById('baby')
 const tween = document.getElementById('tween')
 const teen = document.getElementById('teen')
 const adult = document.getElementById('adult')
+const endGame = document.getElementById('endGame')
 
 // ------ Classes ---------
 
@@ -79,20 +79,12 @@ class Tamagotchi {
         this.boredom = boredom;
         this.age = age;
         this.state = 'awake'; // awake, sleep, dead
-        this.move = 0; // index for moves ['animate__tada', 'animate__wobble', 'animate__bounce', 'animate__rubberBand']
+        this.moves = ['animate__tada', 'animate__bounce', 'animate__wobble', 'animate__rubberBand'];
+        this.moveToDoIdx = 0; // index for moves ['animate__tada', 'animate__wobble', 'animate__bounce', 'animate__rubberBand']
     }
     
     appear() {
-        // resetting
-        this.name = '';
-        baby.style.opacity = 1;
-        tween.style.opacity = 0;
-        teen.style.opacity = 0;
-        adult.style.opacity = 0;
-        tween.style.height = '60%';
-        teen.style.height = '60%';
-        adult.style.height = '60%';
-        // starting
+        resettingGame()
         tama.classList.add('show');
         tama.classList.add('animate__slideInDown')
         // tama.classList.add('animate__tada')
@@ -116,6 +108,16 @@ class Tamagotchi {
             this.boredom -= playingPtsWhenUncomfortable;
         }
     }
+    move(time) {
+        if (time % 4 === 2 && this.state === 'awake') {
+            this.moveToDoIdx >= this.moves.length ? this.moveToDoIdx = this.moveToDoIdx % this.moves.length : this.moveToDoIdx;
+            console.log('animating', this.moveToDoIdx)
+            tama.classList.add(this.moves[this.moveToDoIdx])
+        } else if (tama.classList.contains(this.moves[this.moveToDoIdx])) {
+            tama.classList.remove(this.moves[this.moveToDoIdx])
+            this.moveToDoIdx++
+        }
+    }
     sleep(startSleepTime, curTime) { // times are in minutes
         if (this.sleepiness <= 1) {
             return;
@@ -128,12 +130,8 @@ class Tamagotchi {
         let pointLevel = Math.max(this.sleepiness, this.boredom, this.hunger);
         if (pointLevel >= 10) {
             this.state = 'dead'
-            console.log('dead')
-            alert(`Game over! ${myPet.name} is DEAD... YOU KILLED it!!!`)
-            logoContainer.firstElementChild.remove()
-            adult.style.opacity = 0;
-            inputName.disabled = false
-            startBtn.disabled = false
+            clearInterval(timer);
+            endingGame()
         }
     }
 } 
@@ -142,25 +140,25 @@ class Tamagotchi {
 const gotoSleep = function gotoSleepAndLightsOff() {
     playGround.toggleClass("night")
     lightSwitch.toggleClass("light-off")
-    if (!myPet) {
-        return;
-    }
-    if (myPet.state === 'awake') {
-        myPet.state= 'sleep';
-        startSleepTime = time;
-    } else if (myPet.state === 'sleep') {
-        myPet.state= 'awake';
-    }
+    playerTakingAction('sleeping')
 }
 
 const playerTakingAction = function playerTakingAction(action) {
     if (!myPet) {
         return;
     }
+
     if (action === 'feeding') {
         myPet.eat();
     } else if (action === 'playing') {
         myPet.play();
+    } else if (action === 'sleeping') {
+        if (myPet.state === 'awake') {
+            myPet.state= 'sleep';
+            startSleepTime = time;
+        } else if (myPet.state === 'sleep') {
+            myPet.state= 'awake';
+        }
     }
     updateStats();
 }
@@ -172,83 +170,36 @@ const updateStats = function updateStats() {
     sleepStat.textContent = Math.round(myPet.sleepiness);
 }
 
-const animating = function animating(time) {
-    // tama.classList.remove('animate__slideInDown')
-    // tama.classList.remove('animate__tada')
-    let animate = ['animate__tada', 'animate__bounce', 'animate__wobble', 'animate__rubberBand']
-    if (!myPet) {
-        return;
-    }
-    if (time % 4 === 2 && myPet.state === 'awake') {
-        myPet.move >= animate.length ? myPet.move = myPet.move % animate.length : myPet.move;
-        console.log('animating', myPet.move)
-        tama.classList.add(animate[myPet.move])
-    } else if (tama.classList.contains(animate[myPet.move])) {
-        tama.classList.remove(animate[myPet.move])
-        myPet.move++
-        // console.log('myPet.move', myPet.move)
-    }
-}
-
 const morphing = function morphing(time) {
-    if (!myPet) {
-        return;
-    }
-    if (time === morphTime && myPet.state !== 'dead') {
-        // console.log("%cTween Morph:" + time, 'color: green')
-        baby.style.opacity = 0;
-        tween.style.opacity = 1;
-        tween.style.height = '80%';
-    } else if (time === morphTime * 2 && myPet.state !== 'dead') {
-        // console.log("%cTeen Morph:" + time, 'color: blue')
-        tween.style.opacity = 0;
-        teen.style.opacity = 1;
-        teen.style.height = '100%';
-    } else if (time === morphTime * 3 && myPet.state !== 'dead') {
-        console.log("%cAdult Morph:" + time, 'color: red')
-        teen.style.opacity = 0;
-        adult.style.opacity = 1;
-        adult.style.height = '150%';
-    }
-}
-
-const keyPressed = function keyPressed(e) {
-    if (e.key === 'f') {
-        playerTakingAction('feeding')
-    } else if (e.key === 'p') {
-        playerTakingAction('playing')
-    } else if (e.key === 's') {
-        gotoSleep()
-    } else if (e.key === 'Enter' && !startBtn.disabled) {
-        startGame()
+    let arrMorphTime = [morphTime, morphTime * 2, morphTime * 3];
+    let phases = [baby, tween, teen, adult];
+    let arrHeight = ['80%', '100%', '150%']
+    let index = arrMorphTime.indexOf(time);
+    if (index !== -1 && myPet.state !== 'dead') {
+        console.log('Morph')
+        phases[index].style.opacity = 0;
+        phases[index + 1].style.opacity = 1;
+        phases[index + 1].style.height = arrHeight[index];
     }
 }
 
 const startGame = function startGame() {  // interval in seconds
     let name = inputName.value;
     myPet = new Tamagotchi(name);  // other than name, rest params are using default values
+    endGame.style.opacity = 0;
     inputName.disabled = true;
     startBtn.disabled = true;
     logoContainer.insertAdjacentHTML('afterbegin', `<h2 id="name-display">${name.toUpperCase()}</h2>`);
     myPet.appear();
     time = 0;
-    // sleep button triggers setting the startSleepTime = time
-    // console.log('time before timer:', time)
-    const timer = setInterval(() => {
+    timer = setInterval(() => {
         time++;
         console.log('time:', time);
-        // console.log('startSleepTime BEFORE update', startSleepTime);
         updateHealth(time, startSleepTime);
         updateStats()
         myPet.isItStillAlive();
-        animating(time)
+        myPet.move(time)
         morphing(time)
-        if (myPet.state === 'dead') {
-            clearInterval(timer);
-            console.log('Game OVER!')
-            inputName.disabled = false
-            startBtn.disabled = false
-        }
     }, 1000 * interval);  // 1 sec interval for testing; 1 min for production
 }
 
@@ -257,7 +208,6 @@ const updateHealth = function updatePetHealth(time, startSleepTime) {
     if (time % ptGainTimeUnit === 0 && myPet.state === 'awake') {
         Math.round(myPet.hunger) < 10 ? myPet.hunger += ptsGainPerTimeUnit : myPet.hunger;
         myPet.boredom < 10 ? myPet.boredom += ptsGainPerTimeUnit : myPet.boredom;
-        console.log(myPet.state, 'hunger:', myPet.hunger,'boredom', myPet.boredom)
     } else if ((time - startSleepTime) % hungerPtGainDuringSleepTimeUnit === 0 && myPet.state === 'sleep') {
         myPet.hunger < 10 ? myPet.hunger += ptsGainPerTimeUnit : myPet.hunger;
         console.log(myPet.state, 'hunger while sleep:', myPet.hunger)
@@ -271,9 +221,39 @@ const updateHealth = function updatePetHealth(time, startSleepTime) {
     }
     if (time % ageGainTimeUnit === 0 && myPet.state !== 'dead') {
         myPet.age += ptsGainPerTimeUnit;
-        console.log(myPet.state, 'age:', myPet.age)
     }
 } 
+
+const resettingGame = function resettingGame() {
+    baby.style.opacity = 1;
+    tween.style.opacity = 0;
+    teen.style.opacity = 0;
+    adult.style.opacity = 0;
+    tween.style.height = '60%';
+    teen.style.height = '60%';
+    adult.style.height = '60%';
+}
+
+const endingGame = function endingGame() {
+    console.log('Game OVER!')
+    endGame.style.opacity = 1;
+    logoContainer.firstElementChild.remove()
+    adult.style.opacity = 0;
+    inputName.disabled = false
+    startBtn.disabled = false
+}
+
+const keyPressed = function keyPressed(e) {
+    if (e.key === 'f') {
+        playerTakingAction('feeding')
+    } else if (e.key === 'p') {
+        playerTakingAction('playing')
+    } else if (e.key === 's' || e.key === 'l') {
+        gotoSleep()
+    } else if (e.key === 'Enter' && !startBtn.disabled) {
+        startGame()
+    }
+}
 
 // ------ Event Listeners ---------
 startBtn.addEventListener('click', startGame)
@@ -281,13 +261,3 @@ lightSwitch.on('click', gotoSleep)
 feedBtn.addEventListener('click', e => playerTakingAction('feeding'))
 playBtn.addEventListener('click', e => playerTakingAction('playing'))
 window.addEventListener('keyup', keyPressed)
-
-// ------ Test ---------
-
-// startGame('baby Vader', 1)
-
-const tempFunc = function tempFunc(e) {
-    console.log(name)
-    // console.log(e)
-    // console.log(this)
-}
