@@ -2,9 +2,9 @@ console.log('Tamagotchi')
 // $('body').css('color', 'red')
 
 // Specifications:
-//   ✔  Create a repo for your Tamagotchi pet
-//   ✔   make a commit after you finish each one of the following (20+)
-//   ✔  Create a Class (JS Class, look at your notes if your forget) for your Tamagotchi
+//   ✔   Create a repo for your Tamagotchi pet
+//   ✔   Make a commit after you finish each one of the following (20+)
+//   ✔   Create a Class (JS Class, look at your notes if your forget) for your Tamagotchi
 //   ✔   Instatiate your Tamagotchi
 //   ✔   Display a character of your choice on the screen to represent your pet
 //   ✔   Display the following metrics for your pet:
@@ -36,7 +36,6 @@ console.log('Tamagotchi')
 let time = 0, startSleepTime = 0;
 let myPet;
 let interval = 0.31; // in seconds; 60 sec means each time unit below is one minute; use 1 to shorten the time period for testing
-let morphTime = 10;
 
 const feedingPt = 0.1;
 const playingPtsOptimal = 1;
@@ -46,9 +45,10 @@ const sleepPtReductionTimeUnit = 10;
 
 const ptsGainPerTimeUnit = +1; 
 const ptGainTimeUnit = 10;
-const sleepPtGainTimeUnit = 20;
-const hungerPtGainDuringSleepTimeUnit = 40;
-const ageGainTimeUnit = 10 * sleepPtGainTimeUnit; // 10x of sleep time unit (200 mins in this case)
+const sleepPtGainTimeUnit = 15;
+const hungerPtGainDuringSleepTimeUnit = 30;
+const ageGainTimeUnit = 10;
+let morphTime = ageGainTimeUnit;
 
 // ------ Cached DOM Elements ---------
 const logoContainer = document.querySelector('.logo-container')
@@ -84,6 +84,7 @@ class Tamagotchi {
     
     appear() {
         // resetting
+        this.name = '';
         baby.style.opacity = 1;
         tween.style.opacity = 0;
         teen.style.opacity = 0;
@@ -100,13 +101,13 @@ class Tamagotchi {
         }, 550);
     }
     eat(food) {
-        if (this.state === 'sleep' || this.hunger <= 1) {
+        if (this.state !== 'awake' || this.hunger <= 1) {
             return;
         }
         this.hunger -= feedingPt;
     }
     play(fun) {
-        if (this.state === 'sleep' || this.boredom <= 1) {
+        if (this.state !== 'awake' || this.boredom <= 1) {
             return;
         }
         if (this.hunger >= 4 & this.hunger <= 7) {
@@ -129,6 +130,8 @@ class Tamagotchi {
             this.state = 'dead'
             console.log('dead')
             alert(`Game over! ${myPet.name} is DEAD... YOU KILLED it!!!`)
+            logoContainer.firstElementChild.remove()
+            adult.style.opacity = 0;
             inputName.disabled = false
             startBtn.disabled = false
         }
@@ -192,17 +195,32 @@ const morphing = function morphing(time) {
         return;
     }
     if (time === morphTime && myPet.state !== 'dead') {
+        // console.log("%cTween Morph:" + time, 'color: green')
         baby.style.opacity = 0;
         tween.style.opacity = 1;
         tween.style.height = '80%';
     } else if (time === morphTime * 2 && myPet.state !== 'dead') {
+        // console.log("%cTeen Morph:" + time, 'color: blue')
         tween.style.opacity = 0;
         teen.style.opacity = 1;
         teen.style.height = '100%';
     } else if (time === morphTime * 3 && myPet.state !== 'dead') {
+        console.log("%cAdult Morph:" + time, 'color: red')
         teen.style.opacity = 0;
         adult.style.opacity = 1;
         adult.style.height = '150%';
+    }
+}
+
+const keyPressed = function keyPressed(e) {
+    if (e.key === 'f') {
+        playerTakingAction('feeding')
+    } else if (e.key === 'p') {
+        playerTakingAction('playing')
+    } else if (e.key === 's') {
+        gotoSleep()
+    } else if (e.key === 'Enter' && !startBtn.disabled) {
+        startGame()
     }
 }
 
@@ -211,7 +229,7 @@ const startGame = function startGame() {  // interval in seconds
     myPet = new Tamagotchi(name);  // other than name, rest params are using default values
     inputName.disabled = true;
     startBtn.disabled = true;
-    logoContainer.insertAdjacentHTML('afterbegin', `<h2 id="name-display">${name}</h2>`);
+    logoContainer.insertAdjacentHTML('afterbegin', `<h2 id="name-display">${name.toUpperCase()}</h2>`);
     myPet.appear();
     time = 0;
     // sleep button triggers setting the startSleepTime = time
@@ -262,6 +280,7 @@ startBtn.addEventListener('click', startGame)
 lightSwitch.on('click', gotoSleep)
 feedBtn.addEventListener('click', e => playerTakingAction('feeding'))
 playBtn.addEventListener('click', e => playerTakingAction('playing'))
+window.addEventListener('keyup', keyPressed)
 
 // ------ Test ---------
 
