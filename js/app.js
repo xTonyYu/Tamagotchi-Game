@@ -32,9 +32,12 @@ console.log('Tamagotchi')
 //   ✔   age -> +1 per 200 mins 
 
 // ------ Global variables/App state ---------
-let time = 0, timer, startSleepTime = 0;
+let timer, startSleepTime = 0;
 let myPet;  // declared it as global variable so can be used in cosole log
 let interval = 0.31; // in seconds; 60 sec means each time unit below is one minute; use 1 to shorten the time period for testing
+const arrFoodBasket = ['pizza', 'broccoli', 'sushi', 'cookie', 'steak', 'cherry', 'bellpepper'];
+const arrToyBin = ['unicorn', 'boat', 'painting', 'car'];
+const arrContainer = [arrFoodBasket, arrToyBin]
 
 const feedingPt = 0.1;
 const playingPtsOptimal = 1;
@@ -95,13 +98,13 @@ class Tamagotchi {
         //     tama.classList.remove('animate__slideInDown')
         // }, 550);
     }
-    eat(food) {
+    eat() {
         if (this.state !== 'awake' || this.hunger <= 1) {
             return;
         }
         this.hunger -= feedingPt;
     }
-    play(fun) {
+    play() {
         if (this.state !== 'awake' || this.boredom <= 1) {
             return;
         }
@@ -140,6 +143,15 @@ class Tamagotchi {
 } 
 
 // ------ Functions ---------
+const getRandomImgFrom = function getRandomImgFromArray(nameOfArr) {
+    let index = arrContainer.indexOf(nameOfArr);
+    if (index !== -1) {
+        let arrImg = arrContainer[index];
+    }
+    let iRandom = Math.floor(Math.random() * arrImg.length);
+    return arrImg(iRandom);
+}
+
 const gotoSleep = function gotoSleepAndLightsOff() {
     playGround.toggleClass("night")
     lightSwitch.toggleClass("light-off")
@@ -147,8 +159,9 @@ const gotoSleep = function gotoSleepAndLightsOff() {
 }
 
 const dropInAnimate = function dropIn(stuffDOMElement, className, milliseconds, removeClassAfter) {
-    console.log('%cLook at me!', 'color: red')
+    // console.log('%cLook at me!', 'color: red')
     stuffDOMElement.classList.add(className);
+    className === 'drop-in' ? getRandomImgFrom(stuffDOMElement.dataset.imgList) : className;
     stuffDOMElement.classList.add('animate__slideInDown')
     setTimeout(() => {
         removeClassAfter === true ? stuffDOMElement.classList.remove(className) : console.log('remove class after a few ms');
@@ -198,6 +211,7 @@ const morphing = function morphing(time) {
 }
 
 const startGame = function startGame() {  // interval in seconds
+    console.dir(food)
     let name = inputName.value;
     myPet = new Tamagotchi(name);  // other than name, rest params are using default values
     endGame.style.opacity = 0;
@@ -205,7 +219,7 @@ const startGame = function startGame() {  // interval in seconds
     startBtn.disabled = true;
     logoContainer.insertAdjacentHTML('afterbegin', `<h2 id="name-display">${name.toUpperCase()}</h2>`);
     myPet.appear();
-    time = 0;
+    let time = 0;
     timer = setInterval(() => {
         time++;
         console.log('time:', time);
