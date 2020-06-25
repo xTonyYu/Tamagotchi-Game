@@ -68,6 +68,7 @@ const tween = document.getElementById('tween')
 const teen = document.getElementById('teen')
 const adult = document.getElementById('adult')
 const endGame = document.getElementById('endGame')
+const nameInEndMsg= document.getElementById('name-in-end-msg')
 
 // ------ Classes ---------
 
@@ -236,6 +237,7 @@ const resettingGame = function resettingGame() {
 
 const endingGame = function endingGame() {
     console.log('Game OVER!')
+    inputName.value !== '' ? nameInEndMsg.innerText = myPet.name : nameInEndMsg.innerText = 'it';
     endGame.style.opacity = 1;
     logoContainer.firstElementChild.remove()
     adult.style.opacity = 0;

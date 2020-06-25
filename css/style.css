@@ -157,7 +157,7 @@ main {
     position: absolute;
     width: 20vw;
     height: 25vh;
-    left: 35%;
+    left: 30%;
     top: 40%;
     transition: all linear 1s;
 }
@@ -215,10 +215,16 @@ main {
 }
 
 #endGame {
+    background: url('../img/craveyard.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
     position: fixed;
-    opacity: 0;
+    /* opacity: 0; */
+    font-size: 1.5em;
     width: 50vw;
     height: 50vh;
+    color: rgb(225, 227, 228);
     background-color: red;
     text-align: center;
     transition: all ease-in 300ms;
