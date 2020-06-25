@@ -128,6 +128,7 @@ main {
     background-size: contain;
     position: absolute;
     border: none;
+    outline: unset;
     right: 0;
     /* float: right; */
     margin-right: 30px;
@@ -135,6 +136,7 @@ main {
     width: 70px;
     height: 88px;
     transition: all ease-in-out 1s;
+    border: 1px solid red;
 }
 .playground {
     box-sizing: border-box;
@@ -187,7 +189,7 @@ main {
 
 .stuff {
     display: inline-block;
-    display: none;
+    /* display: none; */
     position: absolute;
     width: 15vw;
     height: 15vh;
@@ -198,13 +200,15 @@ main {
 #food {
     background-image: url('../img/pizza.png');
     background-position: center;
-    background-size: cover;
+    background-size: contain;
+    background-repeat: no-repeat;
     left: 15%;
 }
 #toy {
     background-image: url('../img/unicorn.png');
     background-position: center;
-    background-size: cover;
+    background-size: contain;
+    background-repeat: no-repeat;
     right: 20%;
 }
 

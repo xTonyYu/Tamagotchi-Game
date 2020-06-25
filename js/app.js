@@ -32,12 +32,12 @@ console.log('Tamagotchi')
 //   ✔   age -> +1 per 200 mins 
 
 // ------ Global variables/App state ---------
-let timer, startSleepTime = 0;
+let timer, time = 0, startSleepTime = 0;
 let myPet;  // declared it as global variable so can be used in cosole log
-let interval = 0.31; // in seconds; 60 sec means each time unit below is one minute; use 1 to shorten the time period for testing
+let interval = 1; // in seconds; 60 sec means each time unit below is one minute; use 1 to shorten the time period for testing
 const arrFoodBasket = ['pizza', 'broccoli', 'sushi', 'cookie', 'steak', 'cherry', 'bellpepper'];
 const arrToyBin = ['unicorn', 'boat', 'painting', 'car'];
-const arrContainer = [arrFoodBasket, arrToyBin]
+const objContainer = {'arrFoodBasket': arrFoodBasket, 'arrToyBin': arrToyBin}
 
 const feedingPt = 0.1;
 const playingPtsOptimal = 1;
@@ -102,12 +102,14 @@ class Tamagotchi {
         if (this.state !== 'awake' || this.hunger <= 1) {
             return;
         }
+        dropInAnimate(food, 'drop-in', 700, true);
         this.hunger -= feedingPt;
     }
     play() {
         if (this.state !== 'awake' || this.boredom <= 1) {
             return;
         }
+        dropInAnimate(toy, 'drop-in', 700, true);
         if (this.hunger >= 4 & this.hunger <= 7) {
             this.boredom -= playingPtsOptimal;
         } else {
@@ -134,7 +136,7 @@ class Tamagotchi {
     }
     isItStillAlive() {
         let pointLevel = Math.max(this.sleepiness, this.boredom, this.hunger);
-        if (pointLevel >= 10) {
+        if (pointLevel >= 10 || this.state === 'dead') {
             this.state = 'dead'
             clearInterval(timer);
             endingGame()
@@ -144,12 +146,36 @@ class Tamagotchi {
 
 // ------ Functions ---------
 const getRandomImgFrom = function getRandomImgFromArray(nameOfArr) {
-    let index = arrContainer.indexOf(nameOfArr);
-    if (index !== -1) {
-        let arrImg = arrContainer[index];
+    console.log(nameOfArr)
+    let arrImg = objContainer[nameOfArr];
+    if (!arrImg) {
+        console.log('array not found')
     }
     let iRandom = Math.floor(Math.random() * arrImg.length);
-    return arrImg(iRandom);
+    console.log('%c'+ arrImg[iRandom], 'color: red');
+    return arrImg[iRandom];
+}
+
+const setImgTo = function setImgTo(imgName, nameOfArr) {
+    if (nameOfArr === 'arrFoodBasket') {
+        food.style.setProperty('background-image', `url('./img/${imgName}.png')`)
+    } else if (nameOfArr === 'arrToyBin') {
+        toy.style.setProperty('background-image', `url('./img/${imgName}.png')`)
+    }
+}
+
+const dropInAnimate = function dropIn(stuffDOMElement, className, milliseconds, removeClassAfter) {
+    // console.log('%cLook at me!', 'color: red')
+    stuffDOMElement.classList.add(className);
+    if (className === 'drop-in') {
+        let imgName = getRandomImgFrom(stuffDOMElement.dataset.imgList);
+        setImgTo(imgName, stuffDOMElement.dataset.imgList);
+    };
+    stuffDOMElement.classList.add('animate__slideInDown')
+    setTimeout(() => {
+        removeClassAfter === true ? stuffDOMElement.classList.remove(className) : console.log('remove class after a few ms');
+        stuffDOMElement.classList.remove('animate__slideInDown')
+    }, milliseconds);
 }
 
 const gotoSleep = function gotoSleepAndLightsOff() {
@@ -158,26 +184,13 @@ const gotoSleep = function gotoSleepAndLightsOff() {
     playerTakingAction('sleeping')
 }
 
-const dropInAnimate = function dropIn(stuffDOMElement, className, milliseconds, removeClassAfter) {
-    // console.log('%cLook at me!', 'color: red')
-    stuffDOMElement.classList.add(className);
-    className === 'drop-in' ? getRandomImgFrom(stuffDOMElement.dataset.imgList) : className;
-    stuffDOMElement.classList.add('animate__slideInDown')
-    setTimeout(() => {
-        removeClassAfter === true ? stuffDOMElement.classList.remove(className) : console.log('remove class after a few ms');
-        stuffDOMElement.classList.remove('animate__slideInDown')
-    }, milliseconds);
-}
-
 const playerTakingAction = function playerTakingAction(action) {
     if (!myPet) {
         return;
     }
     if (action === 'feeding') {
-        dropInAnimate(food, 'drop-in', 700, true);
         myPet.eat();
     } else if (action === 'playing') {
-        dropInAnimate(toy, 'drop-in', 700, true);
         myPet.play();
     } else if (action === 'sleeping') {
         if (myPet.state === 'awake') {
@@ -219,7 +232,7 @@ const startGame = function startGame() {  // interval in seconds
     startBtn.disabled = true;
     logoContainer.insertAdjacentHTML('afterbegin', `<h2 id="name-display">${name.toUpperCase()}</h2>`);
     myPet.appear();
-    let time = 0;
+    time = 0;
     timer = setInterval(() => {
         time++;
         console.log('time:', time);
