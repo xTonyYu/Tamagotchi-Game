@@ -29,8 +29,9 @@ body {
 
 button {
     cursor: pointer;
-    /* border: none; */
+    border: 1px solid rgb(245, 240, 108);
     outline: inherit;
+    background-color: rgb(65, 212, 254);
 }
 
 header, main {
@@ -71,14 +72,19 @@ header {
     display: inline-block;
     padding: 0 0 10px 20px;
     width: 190px;
-    /* border: solid 1px red; */
     text-align: center;
     /* background-color: lightyellow; */
 }
 
 input {
     margin: -15px auto 5px;
+    padding: 1px 5px 1px 10px;
     outline: inherit;
+    border: 1px solid rgb(245, 240, 108);
+    border-radius: 15px;
+}
+.start-btn {
+    border-radius: 15px;
 }
 
 .status-container {
@@ -153,7 +159,6 @@ main {
 
 .tamagotchi {
     display: none;
-    /* background-color: lightblue; */
     position: absolute;
     width: 20vw;
     height: 25vh;
@@ -170,7 +175,6 @@ main {
     position: absolute;
     /* bottom: 0; */
     min-height: 100px;
-    /* transition: height linear 1s; */
     transition: opacity ease-in-out 1s;
     transition: all linear 1s;
     height: 60%;
@@ -178,6 +182,33 @@ main {
 
 #tween, #teen, #adult {
     opacity: 0;
+}
+
+.stuff {
+    display: inline-block;
+    display: none;
+    position: absolute;
+    width: 15vw;
+    height: 15vh;
+    z-index: 10;
+    bottom: 20%;
+    /* border: solid 1px red; */
+}
+#food {
+    background-image: url('../img/pizza.png');
+    background-position: center;
+    background-size: cover;
+    left: 15%;
+}
+#toy {
+    background-image: url('../img/unicorn.png');
+    background-position: center;
+    background-size: cover;
+    right: 20%;
+}
+
+.drop-in {
+    display: inline;
 }
 
 .actions {
@@ -220,7 +251,7 @@ main {
     background-position: center;
     background-size: cover;
     position: fixed;
-    /* opacity: 0; */
+    opacity: 0;
     font-size: 1.5em;
     width: 50vw;
     height: 50vh;

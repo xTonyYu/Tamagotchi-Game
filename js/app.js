@@ -67,6 +67,8 @@ const baby = document.getElementById('baby')
 const tween = document.getElementById('tween')
 const teen = document.getElementById('teen')
 const adult = document.getElementById('adult')
+const food = document.getElementById('food')
+const toy = document.getElementById('toy')
 const endGame = document.getElementById('endGame')
 const nameInEndMsg= document.getElementById('name-in-end-msg')
 
@@ -86,12 +88,12 @@ class Tamagotchi {
     
     appear() {
         resettingGame()
-        tama.classList.add('show');
-        tama.classList.add('animate__slideInDown')
-        // tama.classList.add('animate__tada')
-        setTimeout(() => {
-            tama.classList.remove('animate__slideInDown')
-        }, 550);
+        dropInAnimate(tama, 'show', 550, false)
+        // tama.classList.add('show');
+        // tama.classList.add('animate__slideInDown')
+        // setTimeout(() => {
+        //     tama.classList.remove('animate__slideInDown')
+        // }, 550);
     }
     eat(food) {
         if (this.state !== 'awake' || this.hunger <= 1) {
@@ -144,14 +146,25 @@ const gotoSleep = function gotoSleepAndLightsOff() {
     playerTakingAction('sleeping')
 }
 
+const dropInAnimate = function dropIn(stuffDOMElement, className, milliseconds, removeClassAfter) {
+    console.log('%cLook at me!', 'color: red')
+    stuffDOMElement.classList.add(className);
+    stuffDOMElement.classList.add('animate__slideInDown')
+    setTimeout(() => {
+        removeClassAfter === true ? stuffDOMElement.classList.remove(className) : console.log('remove class after a few ms');
+        stuffDOMElement.classList.remove('animate__slideInDown')
+    }, milliseconds);
+}
+
 const playerTakingAction = function playerTakingAction(action) {
     if (!myPet) {
         return;
     }
-
     if (action === 'feeding') {
+        dropInAnimate(food, 'drop-in', 700, true);
         myPet.eat();
     } else if (action === 'playing') {
+        dropInAnimate(toy, 'drop-in', 700, true);
         myPet.play();
     } else if (action === 'sleeping') {
         if (myPet.state === 'awake') {
