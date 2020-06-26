@@ -65,7 +65,7 @@ const ageStat = document.querySelector('.age')
 const hungerStat = document.querySelector('.hungriness')
 const boreStat = document.querySelector('.boredom')
 const sleepStat = document.querySelector('.sleepiness')
-const pet = document.querySelector('.pet')
+const pet = $('.pet')
 const baby = document.getElementById('baby')
 const tween = document.getElementById('tween')
 const teen = document.getElementById('teen')
@@ -175,6 +175,7 @@ const dropInAnimate = function dropIn(stuffDOMElement, className, milliseconds, 
 const gotoSleep = function gotoSleepAndLightsOff() {
     playGround.toggleClass("night")
     lightSwitch.toggleClass("light-off")
+    pet.toggleClass("rotate-90-ccw")
     playerTakingAction('sleeping')
 }
 
