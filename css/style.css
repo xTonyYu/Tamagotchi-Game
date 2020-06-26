@@ -186,14 +186,14 @@ main {
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
-    left: 15%;
+    left: 10%;
 }
 #toy {
     background-image: url('../img/unicorn.png');
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
-    right: 20%;
+    right: 10%;
 }
 
 .drop-in {
