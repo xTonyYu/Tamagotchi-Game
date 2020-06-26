@@ -55,12 +55,14 @@ let morphTime = ageGainTimeUnit * 1;
 // ------ Cached DOM Elements ---------
 const logoContainer = document.querySelector('.logo-container')
 const inputName = document.querySelector('input')
+const startGameContainer = document.querySelector('.start-game')
 const startBtn = document.querySelector('.start-btn')
 const lightSwitch = $('.light-btn')
 const feedBtn = document.getElementById('feed')
 const playBtn = document.getElementById('play')
 const playGround = $('.playground')
 const tama = document.querySelector('.tamagotchi')
+const status= document.querySelector('.status-container')
 const ageStat = document.querySelector('.age')
 const hungerStat = document.querySelector('.hungriness')
 const boreStat = document.querySelector('.boredom')
@@ -225,6 +227,8 @@ const startGame = function startGame() {  // interval in seconds
     inputName.disabled = true;
     startBtn.disabled = true;
     logoContainer.insertAdjacentHTML('afterbegin', `<h2 id="name-display">${name.toUpperCase()}</h2>`);
+    status.classList.remove('hide')
+    startGameContainer.classList.add('hide')
     myPet.appear();
     time = 0;
     timer = setInterval(() => {
