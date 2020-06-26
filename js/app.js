@@ -1,4 +1,4 @@
-console.log('Tamagotchi')
+console.log('Tamagotchi Online Game')
 
 // Specifications:
 //   ✔   Create a repo for your Tamagotchi pet
@@ -17,7 +17,7 @@ console.log('Tamagotchi')
 //   ✔   Increase your pet's age every x minutes
 //   ✔   Increase your pet's Hunger, Sleepiness, and Bored metrics on an interval of your choosing.
 //   ✔   You pet should die if Hunger, Boredom, or Sleepiness hits 10.
-//      Morph your pet at certain ages.
+//   ✔   Morph your pet at certain ages.
 //   ✔   Animate your pet across the screen while it's alive.
 
 // ***** Additional Game features not listed in the README so user have to play to figure it out *****
@@ -92,11 +92,6 @@ class Tamagotchi {
     appear() {
         resettingGame()
         dropInAnimate(tama, 'show', 550, false)
-        // tama.classList.add('show');
-        // tama.classList.add('animate__slideInDown')
-        // setTimeout(() => {
-        //     tama.classList.remove('animate__slideInDown')
-        // }, 550);
     }
     eat() {
         if (this.state !== 'awake' || this.hunger <= 1) {
@@ -126,7 +121,7 @@ class Tamagotchi {
             this.moveToDoIdx++
         }
     }
-    sleep(startSleepTime, curTime) { // times are in minutes
+    sleep(startSleepTime, curTime) {
         if (this.sleepiness <= 1) {
             return;
         }
@@ -145,7 +140,7 @@ class Tamagotchi {
 } 
 
 // ------ Functions ---------
-const getRandomImgFrom = function getRandomImgFromArray(nameOfArr) {
+const getRandomImgFrom = function getRandomImgFrom(nameOfArr) {
     console.log(nameOfArr)
     let arrImg = objContainer[nameOfArr];
     if (!arrImg) {
@@ -165,7 +160,6 @@ const setImgTo = function setImgTo(imgName, nameOfArr) {
 }
 
 const dropInAnimate = function dropIn(stuffDOMElement, className, milliseconds, removeClassAfter) {
-    // console.log('%cLook at me!', 'color: red')
     stuffDOMElement.classList.add(className);
     if (className === 'drop-in') {
         let imgName = getRandomImgFrom(stuffDOMElement.dataset.imgList);
@@ -205,8 +199,8 @@ const playerTakingAction = function playerTakingAction(action) {
 
 const updateStats = function updateStats() {
     ageStat.textContent = myPet.age;
-    hungerStat.textContent = Math.round(myPet.hunger);
-    boreStat.textContent = Math.round(myPet.boredom);
+    hungerStat.textContent = Math.max(Math.round(myPet.hunger), 1);
+    boreStat.textContent = Math.max(Math.round(myPet.boredom), 1);
     sleepStat.textContent = Math.round(myPet.sleepiness);
 }
 
@@ -224,7 +218,6 @@ const morphing = function morphing(time) {
 }
 
 const startGame = function startGame() {  // interval in seconds
-    console.dir(food)
     let name = inputName.value;
     myPet = new Tamagotchi(name);  // other than name, rest params are using default values
     endGame.style.opacity = 0;
@@ -245,7 +238,6 @@ const startGame = function startGame() {  // interval in seconds
 }
 
 const updateHealth = function updatePetHealth(time, startSleepTime) {
-    // console.log('time in update func:', time, startSleepTime, time - startSleepTime)
     if (time % ptGainTimeUnit === 0 && myPet.state === 'awake') {
         Math.round(myPet.hunger) < 10 ? myPet.hunger += ptsGainPerTimeUnit : myPet.hunger;
         myPet.boredom < 10 ? myPet.boredom += ptsGainPerTimeUnit : myPet.boredom;

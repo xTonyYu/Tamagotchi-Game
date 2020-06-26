@@ -9,8 +9,8 @@
     --main-max-width: 600px;
 }
 
+/***********************  Global section   *******************/
 body {
-    /* font-family: 'Roboto', Tahoma, Geneva, Verdana, sans-serif; */
     font-family: 'Pangolin', cursive;
     font-size: 1em;
     background-color: black;
@@ -18,17 +18,15 @@ body {
     background-size: cover;
     background-position: center;
     min-width: var(--main-min-width);
-    min-height: 100vh;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    /* border-radius: 50%; */
-    /* position: relative; */
-    /* overflow: scroll; */
 }
 
 button {
+    font-family: 'Pangolin', cursive;
     cursor: pointer;
     border: 1px solid rgb(245, 240, 108);
     outline: inherit;
@@ -41,10 +39,9 @@ header, main {
     max-width: var(--main-max-width);
 }
 
+/***********************  HEADER section   *******************/
 header {
     background-color: thistle;
-    /* height: 10vh; */
-    /* height: 180px; */
 }
 
 .logo-container {
@@ -61,9 +58,6 @@ header {
     padding-top: 10px;
     text-align: right;
     margin: 0;
-    /* display: inline; */
-    /* vertical-align: middle; */
-    /* top: 100px; */
 }
 #logo {
     height: 90px;
@@ -74,7 +68,6 @@ header {
     padding: 0 0 10px 20px;
     width: 190px;
     text-align: center;
-    /* background-color: lightyellow; */
 }
 
 input {
@@ -108,75 +101,67 @@ ul {
 .status {
     list-style: none;
     margin-bottom: 5px;
-    /* width: 120px; */
 }
 
+/***********************  MAIN section   *******************/
 main {
     position: relative;
-    /* display: block; */
     height: 70vh;
-    /* height: 500px; */
     min-height: 300px;
     background-color: lightyellow;
 }
 
-.light-btn {
-    /* display: inline; */
-    background: url('../img/lightOn.png');
-    background-repeat: no-repeat;
-    background-position: top;
-    background-size: contain;
-    position: absolute;
-    border: none;
-    outline: unset;
-    right: 0;
-    /* float: right; */
-    margin-right: 30px;
-    padding: 0;
-    width: 70px;
-    height: 88px;
-    transition: all ease-in-out 1s;
-    border: 1px solid red;
-}
 .playground {
     box-sizing: border-box;
     background-image: url('../img/Patchi_forest_gogo.jpg');
-    /* background-image: url('../img/lightOff.png'); */
     background-size: cover;
     background-position: center;
     width: 100%;
-    height: 90%;
-    display: flex;
-    /* justify-content: center; */
-    /* align-items: flex-end; */
+    height: 92%;
     border-left: solid 1px grey;
     border-right: solid 1px grey;
     transition: all ease-in-out 1s;
 }
-
 .opaqueLayer {
     background-color: rgba(255, 255, 255, 0.2);
     width: 100%;
     height: 100%;
 }
 
+.light-btn {
+    background: url('../img/lightOn.png');
+    background-repeat: no-repeat;
+    background-position: top;
+    background-size: contain;
+    position: absolute;
+    right: 0;
+    border: none;
+    outline: unset;
+    margin-right: 30px;
+    padding: 0;
+    width: 70px;
+    height: 88px;
+    transition: all ease-in-out 1s;
+    cursor: pointer;
+}
+
+/***********************  Tamagotchi section   *******************/
 .tamagotchi {
     display: none;
     position: absolute;
     width: 20vw;
     height: 25vh;
-    left: 30%;
+    left: 25%;
     top: 40%;
     transition: all linear 1s;
 }
 .tamagotchi:hover {
-    left: 20%;
-    top: 35%;
+    left: 10%;
+    top: 55%;
 }
 
 .pet {
     position: absolute;
-    /* bottom: 0; */
     min-height: 100px;
     transition: opacity ease-in-out 1s;
     transition: all linear 1s;
@@ -189,13 +174,12 @@ main {
 
 .stuff {
     display: inline-block;
-    /* display: none; */
+    display: none;
     position: absolute;
-    width: 15vw;
-    height: 15vh;
+    width: 10vw;
+    height: 10vh;
     z-index: 10;
     bottom: 20%;
-    /* border: solid 1px red; */
 }
 #food {
     background-image: url('../img/pizza.png');
@@ -216,6 +200,7 @@ main {
     display: inline;
 }
 
+/***********************  Feed and Play section   *******************/
 .actions {
     width: 100%;
     position: absolute;
@@ -230,26 +215,8 @@ main {
     border-radius: 50%;
     margin: 10px 20px;
 }
-.show {
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-}
 
-.night {
-    background-image: url('../img/Patchi_forest_night.png');
-    background-size: cover;
-    background-position: center;
-    background-color: rgba(2, 4, 67, 0.529);
-}
-
-.light-off {
-    background: url('../img/lightOff.png');
-    background-repeat: no-repeat;
-    background-position: top;
-    background-size: contain;
-}
-
+/***********************  End Game section   *******************/
 #endGame {
     background: url('../img/craveyard.png');
     background-repeat: no-repeat;
@@ -264,4 +231,24 @@ main {
     background-color: red;
     text-align: center;
     transition: all ease-in 300ms;
+}
+
+/***********************  Switch class section   *******************/
+.show {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.night {
+    background-image: url('../img/Patchi_forest_night.png');
+    background-size: cover;
+    background-position: center;
+    background-color: rgba(2, 4, 67, 0.529);
+}
+
+.light-off {
+    background-image: url('../img/lightOff.png');
+    background-repeat: no-repeat;
+    background-position: top;
 }
