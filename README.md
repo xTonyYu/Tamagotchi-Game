@@ -39,6 +39,10 @@ Approach:
 4) create game interaction link to JS
 5) animate and improve game good and feel
 6) after minimum viable product is completed, start adding new game features
+7) responsive design
+
+Challenges:
++ input, start and light bulb buttons are inaccessible for a certain size of window; need to investigate the cause and/or find an alternative solution
 
 ------------------------
 Wireframes:

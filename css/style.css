@@ -28,9 +28,10 @@ body {
 button {
     font-family: 'Pangolin', cursive;
     cursor: pointer;
-    border: 1px solid rgb(245, 240, 108);
+    border: 3px solid rgb(245, 240, 108);
     outline: inherit;
     background-color: rgb(65, 212, 254);
+    box-shadow: 3px 3px rgb(160, 157, 70), 2px 2px rgb(160, 157, 70), 1px 1px rgb(160, 157, 70);
 }
 
 header, main {
@@ -183,6 +184,9 @@ main {
     height: 88px;
     transition: all ease-in-out 1s;
     cursor: pointer;
+    /* box-shadow: 5px 10px 25px rgba(245, 240, 108, 0.7); */
+    box-shadow: none;
+
 }
 
 /***********************  Tamagotchi section   *******************/
