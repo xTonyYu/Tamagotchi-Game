@@ -34,7 +34,7 @@ console.log('Tamagotchi Online Game')
 // ------ Global variables/App state ---------
 let timer, time = 0, startSleepTime = 0;
 let myPet;  // declared it as global variable so can be used in cosole log
-let interval = 1; // in seconds; 60 sec means each time unit below is one minute; use 1 to shorten the time period for testing
+let interval = 0.1; // in seconds; 60 sec means each time unit below is one minute; use 1 to shorten the time period for testing
 const arrFoodBasket = ['pizza', 'broccoli', 'sushi', 'cookie', 'steak', 'cherry', 'bellpepper'];
 const arrToyBin = ['unicorn', 'boat', 'painting', 'car'];
 const objContainer = {'arrFoodBasket': arrFoodBasket, 'arrToyBin': arrToyBin}
@@ -75,6 +75,7 @@ const adult = document.getElementById('adult')
 const food = document.getElementById('food')
 const toy = document.getElementById('toy')
 const endGame = document.getElementById('endGame')
+const clearPopupBtn = document.querySelector('.clear-popup-x');
 const nameInEndMsg= document.getElementById('name-in-end-msg')
 
 // ------ Classes ---------
@@ -116,7 +117,6 @@ class Tamagotchi {
     move(time) {
         if (time % 4 === 2 && this.state === 'awake') {
             this.moveToDoIdx >= this.moves.length ? this.moveToDoIdx = this.moveToDoIdx % this.moves.length : this.moveToDoIdx;
-            console.log('animating', this.moveToDoIdx)
             tama.classList.add(this.moves[this.moveToDoIdx])
         } else if (tama.classList.contains(this.moves[this.moveToDoIdx])) {
             tama.classList.remove(this.moves[this.moveToDoIdx])
@@ -220,19 +220,20 @@ const morphing = function morphing(time) {
     }
 }
 
+const changingHeaderInfo= function changingHeaderInfo() {
+    inputName.disabled = true;
+    startBtn.disabled = true;
+    logoContainer.insertAdjacentHTML('afterbegin', `<h2 id="name-display">${myPet.name.toUpperCase()}</h2>`);
+    status.classList.remove('hide')
+    status.classList.remove('animate__slideOutUp')
+    status.classList.add('animate__slideInDown')
+    startGameContainer.classList.add('animate__slideOutDown')
+}
+
 const startGame = function startGame() {  // interval in seconds
     let name = inputName.value;
     myPet = new Tamagotchi(name);  // other than name, rest params are using default values
-    endGame.style.opacity = 0;
-    // header transition
-    inputName.disabled = true;
-    startBtn.disabled = true;
-    logoContainer.insertAdjacentHTML('afterbegin', `<h2 id="name-display">${name.toUpperCase()}</h2>`);
-    status.classList.remove('hide')
-    status.classList.add('animate__slideInDown')
-    startGameContainer.classList.add('animate__slideOutDown')
-    // startGameContainer.classList.add('hide')
-    // header transtion ends
+    changingHeaderInfo();
     myPet.appear();
     time = 0;
     timer = setInterval(() => {
@@ -277,25 +278,38 @@ const resettingGame = function resettingGame() {
 }
 
 const endingGame = function endingGame() {
-    console.log('Game OVER!')
     inputName.value !== '' ? nameInEndMsg.innerText = myPet.name : nameInEndMsg.innerText = 'it';
     endGame.style.opacity = 1;
     logoContainer.firstElementChild.remove()
+    myPet.name = '';
     adult.style.opacity = 0;
     inputName.disabled = false
     startBtn.disabled = false
 }
 
 const keyPressed = function keyPressed(e) {
-    if (e.key === 'f') {
-        playerTakingAction('feeding')
-    } else if (e.key === 'p') {
-        playerTakingAction('playing')
-    } else if (e.key === 's' || e.key === 'l') {
-        gotoSleep()
-    } else if (e.key === 'Enter' && !startBtn.disabled) {
-        startGame()
+    if (time !== 0) {
+        if (e.key === 'f') {
+            playerTakingAction('feeding')
+        } else if (e.key === 'p') {
+            playerTakingAction('playing')
+        } else if (e.key === 's' || e.key === 'l') {
+            gotoSleep()
+        } else if (e.key === 'x') {
+            clearEndGameMsg()
+        } 
+    } else if (e.key === 'Enter' && startBtn.disabled === false) {
+            startGame()
     }
+}
+
+const clearEndGameMsg = function clearEndGameMsg() {
+    time = 0;
+    endGame.style.opacity = 0;
+    startGameContainer.classList.remove('animate__slideOutDown')
+    startGameContainer.classList.add('animate__slideInUp')
+    status.classList.remove('animate__slideInDown')
+    status.classList.add('animate__slideOutUp')
 }
 
 // ------ Event Listeners ---------
@@ -304,3 +318,4 @@ lightSwitch.on('click', gotoSleep)
 feedBtn.addEventListener('click', e => playerTakingAction('feeding'))
 playBtn.addEventListener('click', e => playerTakingAction('playing'))
 window.addEventListener('keyup', keyPressed)
+clearPopupBtn.addEventListener('click', clearEndGameMsg)

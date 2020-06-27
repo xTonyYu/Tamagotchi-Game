@@ -55,6 +55,7 @@ header {
     background-color: thistle;
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     /* position: absolute; */
 }
 #name-display {
@@ -72,14 +73,18 @@ header {
 }
 
 .all-stat {
+    position: relative;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .start-game {
     /* position: relative; */
     position: absolute;
-    top: 90px;
-    padding: 0 0 10px 20px;
+    top: 0px;
+    padding: 5px 0;
     width: 190px;
     text-align: center;
     transition: all ease-in-out 1000ms;
@@ -97,7 +102,8 @@ input {
 
 .status-container {
     position: relative;
-    height: 90px;
+    height: 85px;
+    margin-bottom: 5px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -246,9 +252,9 @@ main {
     background-position: center;
     background-size: cover;
     position: fixed;
-    /* opacity: 0; */
+    opacity: 0;
     font-size: 1.5em;
-    width: 50vw;
+    width: 70vw;
     height: 50vh;
     color: rgb(225, 227, 228);
     background-color: red;
@@ -256,6 +262,26 @@ main {
     transition: all ease-in 300ms;
 }
 
+.clear-x-wrapper {
+    margin: 10px;
+    width: 30px; 
+    height: 30px;
+    float: right;
+}
+.clear-popup-x {
+    visibility: visible;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    /* float: right; */
+}
+#svg-X {
+    fill: white;
+}
+
+#endGame h2 {
+    margin-top: 50px;
+}
 /***********************  Switch class section   *******************/
 .show { /* to show Tamagotchi */
     display: flex;
