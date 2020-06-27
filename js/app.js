@@ -34,7 +34,7 @@ console.log('Tamagotchi Online Game')
 // ------ Global variables/App state ---------
 let timer, time = 0, startSleepTime = 0;
 let myPet;  // declared it as global variable so can be used in cosole log
-let interval = 0.1; // in seconds; 60 sec means each time unit below is one minute; use 1 to shorten the time period for testing
+let interval = 1; // in seconds; 60 sec means each time unit below is one minute; use 1 to shorten the time period for testing
 const arrFoodBasket = ['pizza', 'broccoli', 'sushi', 'cookie', 'steak', 'cherry', 'bellpepper'];
 const arrToyBin = ['unicorn', 'boat', 'painting', 'car'];
 const objContainer = {'arrFoodBasket': arrFoodBasket, 'arrToyBin': arrToyBin}

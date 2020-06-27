@@ -130,7 +130,7 @@ ul {
 /***********************  MAIN section   *******************/
 main {
     position: relative;
-    height: 70vh;
+    height: 60vh;
     /* height: 700px; */
     min-height: 300px;
     background-color: lightyellow;
@@ -143,7 +143,9 @@ main {
     background-size: cover;
     background-position: center;
     width: 100%;
-    height: 92%;
+    height: 85%;
+    /* min-height: 300px; */
+    /* max-height: 540px; */
     border-left: solid 1px grey;
     border-right: solid 1px grey;
     transition: all ease-in-out 1s;
@@ -239,8 +241,8 @@ main {
 }
 
 .actions button {
-    width: 50px;
-    height: 50px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     margin: 10px 20px;
 }
