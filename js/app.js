@@ -224,11 +224,15 @@ const startGame = function startGame() {  // interval in seconds
     let name = inputName.value;
     myPet = new Tamagotchi(name);  // other than name, rest params are using default values
     endGame.style.opacity = 0;
+    // header transition
     inputName.disabled = true;
     startBtn.disabled = true;
     logoContainer.insertAdjacentHTML('afterbegin', `<h2 id="name-display">${name.toUpperCase()}</h2>`);
     status.classList.remove('hide')
-    startGameContainer.classList.add('hide')
+    status.classList.add('animate__slideInDown')
+    startGameContainer.classList.add('animate__slideOutDown')
+    // startGameContainer.classList.add('hide')
+    // header transtion ends
     myPet.appear();
     time = 0;
     timer = setInterval(() => {
