@@ -85,11 +85,16 @@ header {
     position: absolute;
     top: 0px;
     padding: 5px 0;
-    width: 190px;
+    width: 220px;
     text-align: center;
     transition: all ease-in-out 1000ms;
 }
 input {
+    display: inline;
+    font-family: 'Pangolin', cursive;
+    font-size: 15px;
+    height: 25px;
+    width: 125px;
     margin: -15px auto 5px;
     padding: 1px 5px 1px 10px;
     outline: inherit;
@@ -97,7 +102,11 @@ input {
     border-radius: 15px;
 }
 .start-btn {
-    border-radius: 15px;
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-left: 10px;
 }
 
 .status-container {
@@ -110,7 +119,7 @@ input {
 }
 
 h4 {
-    margin: 0 0 10px;
+    margin: 0 0 5px;
 }
 
 ul {
@@ -207,8 +216,8 @@ main {
     display: inline-block;
     display: none;
     position: absolute;
-    width: 10vw;
-    height: 10vh;
+    width: 25%;
+    height: 25%;
     z-index: 10;
     bottom: 20%;
 }
@@ -241,6 +250,8 @@ main {
 }
 
 .actions button {
+    font-family: 'Pangolin', cursive;
+    font-size: 15px;
     width: 80px;
     height: 80px;
     border-radius: 50%;
@@ -345,4 +356,18 @@ main {
 .rotate-90-ccw {
 	-webkit-animation: rotate-90-ccw 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 	        animation: rotate-90-ccw 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+@media only screen and (min-height: 560px)
+and (max-height: 670px) {
+    .playground {
+        height: 76%;
+    }
+}
+
+@media only screen and (min-height: 671px)
+and (max-height: 815px) {
+    .playground {
+        height: 80%;
+    }
 }

@@ -280,6 +280,7 @@ const resettingGame = function resettingGame() {
 const endingGame = function endingGame() {
     inputName.value !== '' ? nameInEndMsg.innerText = myPet.name : nameInEndMsg.innerText = 'it';
     endGame.style.opacity = 1;
+    clearPopupBtn.addEventListener('click', clearEndGameMsg)
     logoContainer.firstElementChild.remove()
     myPet.name = '';
     adult.style.opacity = 0;
@@ -306,6 +307,7 @@ const keyPressed = function keyPressed(e) {
 const clearEndGameMsg = function clearEndGameMsg() {
     time = 0;
     endGame.style.opacity = 0;
+    clearPopupBtn.removeEventListener('click', clearEndGameMsg)
     startGameContainer.classList.remove('animate__slideOutDown')
     startGameContainer.classList.add('animate__slideInUp')
     status.classList.remove('animate__slideInDown')
@@ -318,4 +320,3 @@ lightSwitch.on('click', gotoSleep)
 feedBtn.addEventListener('click', e => playerTakingAction('feeding'))
 playBtn.addEventListener('click', e => playerTakingAction('playing'))
 window.addEventListener('keyup', keyPressed)
-clearPopupBtn.addEventListener('click', clearEndGameMsg)
