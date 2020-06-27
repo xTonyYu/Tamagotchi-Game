@@ -169,7 +169,7 @@ const dropInAnimate = function dropIn(stuffDOMElement, className, milliseconds, 
     };
     stuffDOMElement.classList.add('animate__slideInDown')
     setTimeout(() => {
-        removeClassAfter === true ? stuffDOMElement.classList.remove(className) : console.log('remove class after a few ms');
+        removeClassAfter === true ? stuffDOMElement.classList.remove(className) : removeClassAfter;
         stuffDOMElement.classList.remove('animate__slideInDown')
     }, milliseconds);
 }
@@ -279,6 +279,7 @@ const resettingGame = function resettingGame() {
 
 const endingGame = function endingGame() {
     inputName.value !== '' ? nameInEndMsg.innerText = myPet.name : nameInEndMsg.innerText = 'it';
+    endGame.style.zIndex = 2;
     endGame.style.opacity = 1;
     clearPopupBtn.addEventListener('click', clearEndGameMsg)
     logoContainer.firstElementChild.remove()
@@ -307,6 +308,7 @@ const keyPressed = function keyPressed(e) {
 const clearEndGameMsg = function clearEndGameMsg() {
     time = 0;
     endGame.style.opacity = 0;
+    endGame.style.zIndex = -1;
     clearPopupBtn.removeEventListener('click', clearEndGameMsg)
     startGameContainer.classList.remove('animate__slideOutDown')
     startGameContainer.classList.add('animate__slideInUp')
