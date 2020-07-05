@@ -29,7 +29,7 @@ button {
     font-family: 'Pangolin', cursive;
     cursor: pointer;
     border: 3px solid rgb(245, 240, 108);
-    outline: inherit;
+    /* outline: inherit; */
     background-color: rgb(65, 212, 254);
     box-shadow: 3px 3px rgb(160, 157, 70), 2px 2px rgb(160, 157, 70), 1px 1px rgb(160, 157, 70);
 }
@@ -180,7 +180,7 @@ main {
     position: absolute;
     right: 0;
     border: none;
-    outline: unset;
+    /* outline: none; */
     margin-right: 30px;
     padding: 0;
     width: 70px;

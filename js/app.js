@@ -32,7 +32,7 @@ console.log('Tamagotchi Online Game')
 //   ✔   age -> +1 per 200 mins 
 
 // ------ Global variables/App state ---------
-let timer, time = 0, startSleepTime = 0;
+let timer, time = 0, startSleepTime = 0, isNightTime = false;
 let myPet;  // declared it as global variable so can be used in cosole log
 let interval = 1; // in seconds; 60 sec means each time unit below is one minute; use 1 to shorten the time period for testing
 const arrFoodBasket = ['pizza', 'broccoli', 'sushi', 'cookie', 'steak', 'cherry', 'bellpepper'];
@@ -87,7 +87,7 @@ class Tamagotchi {
         this.hunger = hunger;
         this.boredom = boredom;
         this.age = age;
-        this.state = 'awake'; // awake, sleep, dead
+        this.state = isNightTime? 'sleep' : 'awake'; // awake, sleep, dead
         this.moves = ['animate__tada', 'animate__bounce', 'animate__wobble', 'animate__rubberBand'];
         this.moveToDoIdx = 0; // index for moves ['animate__tada', 'animate__wobble', 'animate__bounce', 'animate__rubberBand']
     }
@@ -132,7 +132,7 @@ class Tamagotchi {
         };
     }
     isItStillAlive() {
-        let pointLevel = Math.max(this.sleepiness, this.boredom, this.hunger);
+        let pointLevel = Math.round(Math.max(this.sleepiness, this.boredom, this.hunger));
         if (pointLevel >= 10 || this.state === 'dead') {
             this.state = 'dead'
             clearInterval(timer);
@@ -178,6 +178,7 @@ const gotoSleep = function gotoSleepAndLightsOff() {
     playGround.toggleClass("night")
     lightSwitch.toggleClass("light-off")
     pet.toggleClass("rotate-90-ccw")
+    isNightTime = isNightTime ? false : true;
     playerTakingAction('sleeping')
 }
 
@@ -283,7 +284,6 @@ const endingGame = function endingGame() {
     endGame.style.opacity = 1;
     clearPopupBtn.addEventListener('click', clearEndGameMsg)
     logoContainer.firstElementChild.remove()
-    myPet.name = '';
     adult.style.opacity = 0;
     inputName.disabled = false
     startBtn.disabled = false
@@ -307,6 +307,7 @@ const keyPressed = function keyPressed(e) {
 
 const clearEndGameMsg = function clearEndGameMsg() {
     time = 0;
+    myPet.name = '';
     endGame.style.opacity = 0;
     endGame.style.zIndex = -1;
     clearPopupBtn.removeEventListener('click', clearEndGameMsg)
